@@ -96,7 +96,7 @@ namespace AuthSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "komandorpolicy")]
-        public async Task<IActionResult> Edit(int id, [Bind("ArticleId,Title,Content")] Article article)
+        public async Task<IActionResult> Edit(int id, [Bind("ArticleId,Title,Date,Content")] Article article)
         {
             if (id != article.ArticleId)
             {

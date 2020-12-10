@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using Microsoft.AspNetCore.Identity
+@using AuthSystem.Areas.Identity.Data
+
+@inject SignInManager<AuthSystemUser> SignInManager
+@inject UserManager<AuthSystemUser> UserManager
+
+<style>
+    body {
+        /*background-position:center;*/
+        background-position: center;
+        background-image: url('/css/sea2.jpg');
+        height: auto;
+        width: auto;
+    }
+    .ddd {
+        font-size: 5rem;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        font-family:Roboto;
+    }
+
+</style>
+
+<div class="ddd">
+    <h2 class="display-5" style="text-shadow: 1px 1px #808080">Witaj na stronie Akademickiego Klubu Żeglarskiego</h2>
+    <h1>Raksa</h1>
+    <p>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a id="manage" class="text-muted" style="font-size:large;" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Cześć @UserManager.GetUserName(User)!</a>
+        }
+    </p>
+    <p>
+        <a class="btn btn-warning" asp-area="" asp-controller="Articles" asp-action="Index">Co nowego?</a>
+    </p>
+</div>

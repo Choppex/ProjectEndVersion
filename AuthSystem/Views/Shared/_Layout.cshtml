@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    @using Microsoft.AspNetCore.Authorization
+    @inject IAuthorizationService AuthorizationService
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AuthSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+
+    <style type="text/css">
+
+        body {
+            background-image: url('/css/sea2.jpg');
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: Roboto;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+
+        navbar {
+            overflow: hidden;
+        }
+
+        .sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .fixed-margin {
+            margin-top: 5%;
+        }
+
+        .extram-margin {
+            margin-right: 1%;
+            margin-left: 1%;
+        }
+
+        .margin-box {
+            margin-left: 1%;
+        }
+
+        .baner {
+            background-color:cornflowerblue;
+            width:100%;
+            margin-top:5%;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <header class="sticky">
+        <nav id="navbar" class="navbar sticky navbar-expand-sm navbar-toggleable-sm bg-light navbar-light border-bottom box-shadow mb-3">
+            <div class="container">
+                <img src="/css/icon.png" sizes="10%" />
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="AboutModels" asp-action="Index">O nas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Articles" asp-action="Index">Aktualności</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Image" asp-action="Index">Galeria</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Weather">Pogoda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Notes" asp-action="Index">Notatki</a>
+                        </li>
+
+                        @if ((await AuthorizationService.AuthorizeAsync(User, "standardpolicy")).Succeeded)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="PaymentModels" asp-action="Index">Składki</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Skarbnik"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Manage
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-controller="PaymentModels"
+                                       asp-action="IndexAdmin">Składki</a>
+                                    <a class="dropdown-item" asp-controller="Notes"
+                                       asp-action="Index">Składki Notatki</a>
+                                </div>
+                            </li>
+
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Manage
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-controller="Administration"
+                                       asp-action="ListUsers">Użytkownicy</a>
+                                    <a class="dropdown-item" asp-controller="Administration"
+                                       asp-action="ListRoles">Role</a>
+                                    <a class="dropdown-item" asp-controller="Articles"
+                                       asp-action="IndexAdmin">Aktualności</a>
+                                    <a class="dropdown-item" asp-controller="Image"
+                                       asp-action="IndexAdmin">Galeria</a>
+                                    <a class="dropdown-item" asp-controller="AboutModels"
+                                       asp-action="IndexAdmin">O nas</a>
+                                    <a class="dropdown-item" asp-controller="PaymentModels"
+                                       asp-action="IndexAdmin">Składki</a>
+                                    <a class="dropdown-item" asp-controller="Notes"
+                                       asp-action="Index">Składki Notatki</a>
+                                </div>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Komandor"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Manage
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-controller="Articles"
+                                       asp-action="IndexAdmin">Aktualności</a>
+                                    <a class="dropdown-item" asp-controller="Image"
+                                       asp-action="IndexAdmin">Galeria</a>
+                                    <a class="dropdown-item" asp-controller="AboutModels"
+                                       asp-action="IndexAdmin">O nas</a>
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial.cshtml" />
+                </div>
+
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <h3 class="baner">
+                <i class="fas fa-anchor"></i>
+                Akademicki Klub Żeglarski Raksa
+            </h3> 
+            @RenderBody()
+        </main>
+    </div>
+    <footer>
+        <div>
+            <label>Zobacz nas także na:</label>
+            <p>
+                <a href="www.facebook.com" class="extram-margin"><img src="~/css/SocialMediaIcons/facebook.svg" height="32px" width="32px" /></a>
+                <a class="extram-margin"><img src="~/css/SocialMediaIcons/instagram.svg" height="32px" width="32px" /></a>
+                <a class="extram-margin"><img src="~/css/SocialMediaIcons/twitter.svg" height="32px" width="32px" /></a>
+            </p>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

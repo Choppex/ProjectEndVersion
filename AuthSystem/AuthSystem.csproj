@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\css\lake.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="HtmlImages\background1.jpg" />
+    <Content Include="HtmlImages\background2.jpg" />
+    <Content Include="HtmlImages\background3.jpg" />
+    <Content Include="HtmlImages\background3fixed.jpg" />
+    <Content Include="HtmlImages\background4.jpg" />
+    <Content Include="HtmlImages\icon.png" />
+    <Content Include="HtmlImages\landscape-minimal.jpg" />
+    <Content Include="HtmlImages\sailboat.jpg" />
+    <Content Include="HtmlImages\sailboat2.jpg" />
+    <Content Include="HtmlImages\sea-flat.jpg" />
+    <Content Include="HtmlImages\sea.jpg" />
+    <Content Include="HtmlImages\sea2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.10.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Image\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AuthSystem.Models.ImageModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .space {
+        margin: 10px;
+    }
+</style>
+
+<div class="card" style="background-color: #f2f2f2">
+    <h1 class="ml-3">Nasze zdjęcia</h1>
+    <div class="row" style="margin:3%">
+        <div class="col-sm">
+            @{
+                var counter = 0;
+                foreach (var item in Model.Reverse())
+                {
+                    counter = counter + 1;
+                    if (counter % 2 == 1)
+                    {
+                        <div class="card space">
+                            <a asp-action="Details" asp-route-id="@item.ImageId"><img class="card-body" src="@("~/image/" + item.ImageName)" asp-append-version="true" width="100%" height="100%"></a>
+                        </div>
+                    }
+                }
+            }
+        </div>
+        <div class="col-sm">
+            @{
+                var counter2 = 0;
+                foreach (var item in Model.Reverse())
+                {
+                    counter2 = counter2 + 1;
+                    if (counter2 % 2 == 0)
+                    {
+                        <div class="card space">
+                            <a asp-action="Details" asp-route-id="@item.ImageId"><img class="card-body" src="@("~/image/" + item.ImageName)" asp-append-version="true" width="100%" height="100%"></a>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+

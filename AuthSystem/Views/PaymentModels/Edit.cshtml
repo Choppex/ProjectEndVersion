@@ -1,0 +1,50 @@
+﻿@model AuthSystem.Models.PaymentModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card">
+    <h1 class="ml-4 mt-4">Edytuj</h1>
+    <div class="card-header">
+        <h3>@Html.DisplayFor(model => model.Title)</h3>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PaymentId" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Tytuł:</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label">Data: </label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label">Opis:</label>
+                <textarea rows="8" cols="20" asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Number" class="control-label">Numer konta:</label>
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="submit" value="Zapisz" class="btn btn-success" />
+                <label />
+                <a class="btn btn-warning" asp-action="IndexAdmin">Wróć</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

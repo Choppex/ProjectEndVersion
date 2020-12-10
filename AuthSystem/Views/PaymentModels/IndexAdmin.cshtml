@@ -1,0 +1,57 @@
+﻿@model IEnumerable<AuthSystem.Models.PaymentModel>
+
+@{
+    ViewData["Title"] = "Składki";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="card" style="background-color: #f2f2f2">
+        <h1 class="ml-2">Składki członkowskie</h1>
+        <p>
+            <a class="ml-2 btn btn-success" asp-action="Create">Dodaj nowy wpis</a>
+        </p>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    @foreach (var item in Model.Reverse())
+                    {
+
+                        <div class="card" style="width: auto;">
+                            <div class="card-body">
+                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                                <h6 class="card-subtitle mb-2 text-muted"> @Html.DisplayFor(modelItem => item.Date)</h6>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.Content)</p>
+                                @if (item.Number != null)
+                                {
+                                    <p class="card-text">Numer konta do wpłat:</p>
+                                    <p><strong> @Html.DisplayFor(modelItem => item.Number)</strong></p>
+                                }
+                            </div>
+                            <div class="card-footer">
+                                <a asp-action="Edit" asp-route-id="@item.PaymentId" class="btn btn-warning">Edytuj</a>
+                                <a asp-action="Delete" asp-route-id="@item.PaymentId" class="btn btn-danger">Usuń</a>
+                            </div>
+                        </div>
+                        <label> </label>
+                    }
+                </div>
+                <div class="col-sm">
+                    <h3>Ważne informacje:</h3>
+                    <h5>Płatność gotówką</h5>
+                    <p>Dla osób które preferują płatność gotówką, taka możliwość jest u naszego kolegi Jana Kowalskiego na każdym spotkaniu.</p>
+                    <h5>Dane w przelewie</h5>
+                    <p>Proszę aby w tytule przelewu nie zapominać o podaniu imienia i nazwiska oraz miesiąca za który wpłacamy</p>
+                    <h5>Płatność BLIK</h5>
+                    <p>Dużo osób pytało mnie o płatność blikiem na telefon. Oczywiście jest taka możliwość :). Numer na który można wpłacać składki 123 456 789</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                @*<a asp-action="Edit" asp-route-id="@item.PaymentId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PaymentId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PaymentId">Delete</a>*@
+

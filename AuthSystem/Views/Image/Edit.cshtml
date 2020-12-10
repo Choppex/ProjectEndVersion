@@ -1,0 +1,59 @@
+﻿@model AuthSystem.Models.ImageModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+@*<div class="card">
+    <div class="card-header">
+        <h3>@Html.DisplayFor(model => model.Title)</h3>
+    </div>
+    <div class="card-body">
+        @Html.DisplayFor(model => model.ImageName)
+        <p>
+            <img src="@("~/image/"+Model.ImageName)" asp-append-version="true" width="250px" height="250px" />
+        </p>
+    </div>
+    <div class="card-footer">
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ImageId" />
+            <input type="submit" value="Usuń" class="btn btn-danger" />
+            <label> </label>
+            <a class="btn btn-warning" asp-action="IndexAdmin">Wróć do listy</a>
+        </form>
+    </div>
+</div>*@
+    
+<div class="card" style="background-color:#f2f2f2">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card-header">
+                <h4 class="ml-4">Edytuj</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit" class="ml-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ImageId" />
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label">Opis zdjęcia:</label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImageName" class="control-label">Nazwa pliku: </label>
+                        <input disabled asp-for="ImageName" class="form-control" />
+                        <span asp-validation-for="ImageName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Zapisz" class="btn btn-success" />
+                        <label> </label>
+                        <a class="btn btn-warning" asp-action="IndexAdmin">Wróć</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

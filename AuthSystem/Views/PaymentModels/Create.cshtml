@@ -1,0 +1,86 @@
+﻿@model AuthSystem.Models.PaymentModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm card">
+
+        <h1>Dodaj nowy wpis</h1>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Tytuł:</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label">Data: </label>
+                <input type="text" value="@DateTime.Now.ToString("MM.yyyy")" asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label">Opis:</label>
+                <textarea rows="8" cols="20" asp-for="Content" class="form-control"></textarea>
+                @*<input asp-for="Content" class="form-control" />*@
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Number" class="control-label">(opcjonalne) Numer konta:</label>
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-success" />
+                <label> </label>
+                <a class="btn btn-warning" asp-action="Index">Wróc</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<h1>Dodaj </h1>
+
+<h4>PaymentModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Number" class="control-label"></label>
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,98 @@
+﻿@model IEnumerable<AuthSystem.Models.Notes>
+
+@{
+    ViewData["Title"] = "Notatki";
+    var ordered = Model.OrderByDescending(d => Convert.ToDateTime(d.Date));
+    var counter = "cnt";
+}
+
+<script>
+    function confirmDelete(uniqueId, isTrue) {
+
+        var deleteSpan = 'deleteSpan_' + uniqueId;
+        var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+        if (isTrue) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteSpan).hide();
+        }
+    }
+</script>
+
+<div>
+    <div class="card" style="background-color: #f2f2f2">
+        <h1 class="ml-2">Składki członkowskie</h1>
+        <p>
+            <a asp-action="Create" class="btn btn-success ml-4 mt-4">Dodaj nowy wpis</a>
+        </p>
+
+
+
+        <div class="container">
+            <div class="row ml-0">
+                <div class="col-md-2 col-xs-12">
+                    <strong>Data</strong>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <strong>Imię</strong>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <strong>Nazwisko</strong>
+                </div>
+                <div class="col-md-5 col-xs-12">
+                    <strong>Notatka</strong>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        </div>
+        <hr />
+        @foreach (var item in ordered)
+        {
+            @if (counter != item.Date.ToString())
+            {
+                <hr style="height:1px;border:none;color:#333;background-color:#333;" />
+            }
+            <div class="container">
+                <div class="row ml-0">
+                    <div class="col-md-2 col-xs-12">
+                        @if (counter != item.Date.ToString())
+                        {
+                            <strong>@Html.DisplayFor(modelItem => item.Date)</strong>
+                        }
+                    </div>
+                    <div class="col-md-2 col-xs-6">
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </div>
+                    <div class="col-md-2 col-xs-6">
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        @Html.DisplayFor(modelItem => item.Note)
+                    </div>
+                    <div class="col-md-2">
+                        <form asp-action="Delete" asp-route-id="@item.NoteId" method="post">
+                            <span id="confirmDeleteSpan_@item.NoteId" style="display:none">
+
+                                <button type="submit" class="btn btn-danger">Tak</button>
+                                <a href="#" class="btn btn-primary"
+                                   onclick="confirmDelete('@item.NoteId', false)">Nie</a>
+                            </span>
+
+                            <span id="deleteSpan_@item.NoteId">
+                                <a href="#" class="btn btn-danger"
+                                   onclick="confirmDelete('@item.NoteId', true)">Usuń</a>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            counter = item.Date.ToString();
+        }
+
+    </div>
+</div>

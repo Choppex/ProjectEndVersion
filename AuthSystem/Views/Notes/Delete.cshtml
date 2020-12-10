@@ -1,0 +1,27 @@
+﻿@model AuthSystem.Models.Notes
+
+@{
+    ViewData["Title"] = "Usuń notatke";
+}
+<div class="card" style="background-color: #f2f2f2">
+
+    <div class="container mt-4 mb-4">
+        <h3>Napewno chcesz usunąć?</h3>
+        <div class="card">
+            <div class="card-header">
+                <h3>@Html.DisplayFor(model => model.Date)</h3>
+            </div>
+            <div class="card-body">
+                @Html.DisplayFor(model => model.Note)
+            </div>
+            <div class="card-footer">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="NoteId" />
+                    <input type="submit" value="Usuń" class="btn btn-danger" />
+                    <label></label>
+                    <a class="btn btn-warning" asp-action="Index">Wróc do listy</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿@model AuthSystem.Models.ImageModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+<div class="card">
+    <div class="card-header">
+        <h3>@Html.DisplayFor(model => model.Title)</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            <img src="@("~/image/"+Model.ImageName)" asp-append-version="true" height="100%" width="100%"/>
+        </p>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-warning" asp-action="Index">Wróć</a>
+
+    </div>
+</div>

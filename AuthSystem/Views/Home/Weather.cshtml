@@ -1,0 +1,230 @@
+﻿@{
+    ViewBag.Title = "Pogoda";
+}
+<style type="text/css">
+    .test {
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+    .text-medium {
+        font-size: 20px;
+    }
+
+    /*.card {
+        background-size: cover;
+        background-image: url('/css/sea2.jpg');
+        width: 500px;
+        height: 350px;
+        border-radius: 20px;
+        box-shadow: 0px 8px 16px 4px #9E9E9E;
+        margin-top: 50px;
+        margin-bottom: 50px
+    }*/
+</style>
+<div class="card" style="background-color: #fff">
+    <h5 class="text-center mt-3">Pogoda u nas:</h5>
+    <div class="container ml-5 mr-5 mb-3">
+        <p>
+            <label id="city" class="text-medium mb-auto"><strong>City</strong></label>,
+            <label id="country" class="text-muted">CN</label>
+        </p>
+        <p><label class="text-muted">@DateTime.Now.ToString("dddd, HH:mm")</label></p>
+        <div class="row">
+            <div class="col-sm-4">
+                <p class="test">
+                    <img id="weatherIcon" src="" class="text-left">
+                    <label id="temperature"><strong>Temp</strong></label>
+                    <label id="temperature"><strong>&deg;C</strong></label>
+                </p>
+                <p>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="text-muted">Min: </label>
+                            <label id="tempmin"></label>
+                            <label>&deg;C</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="text-muted">Max: </label>
+                            <label id="tempmax"></label>
+                            <label>&deg;C</label>
+                        </div>
+                    </div>
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <p>
+                    <img src="~/css/wind.png" sizes="10%" />
+                    <label class="text-muted">Wiatr: </label>
+                    <label id="wind">20%</label>
+                    <label>m/s</label>
+                </p>
+                <p>
+                    <img src="~/css/humidity.png" sizes="10%" />
+                    <label class="text-muted">Wilgotność: </label>
+                    <label id="humidity">20%</label>
+                    <label>%</label>
+                </p>
+                <p>
+                    <img src="~/css/cloud.png" sizes="1%" />
+                    <label class="text-muted">Zachmurzenie: </label>
+                    <label id="clouds">20%</label>
+                    <label>%</label>
+                </p>
+                <p>
+                    <img src="~/css/pressure.png" sizes="10%" />
+                    <label class="text-muted">Ciśnienie: </label>
+                    <label id="pressure">hPa</label>
+                    <label>hPa</label>
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <p>
+                    <label class="text-muted">Wschód: </label>
+                    <label id="sunrise"></label>
+                </p>
+                <p>
+                    <label class="text-muted">Zachód: </label>
+                    <label id="sunset"></label>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div style="background-color:#f2f2f2">
+        <h5 class="text-center mt-5">Żeglujesz w innym miejscu? </h5>
+        <h6 class="text-center">Nic nie szkodzi! Wpisz poniżej nazwę miasta</h6>
+        <div class="text-center">
+            <input id="txtCity" type="text" />
+            <br />
+            <br />
+            <button id="btnSubmit" class="btn-success">Szukaj</button>
+            <br />
+            <br />
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function convertTimestamp(time) {
+        var date = new Date(time * 1000);
+        var hours = date.getHours();
+        var minutes = "0" + date.getMinutes();
+        var formattedTime = hours + ':' + minutes.substr(-2);
+        return formattedTime;
+    }
+
+    function getTemp(temp) {
+        var index = temp.indexOf(".");
+        if (index == -1) return temp;
+        else {
+            var tempSimple = temp.slice(0, index);
+            return tempSimple;
+        }
+    }
+
+    var cityname = "pszczyna";
+    if (cityname.length > 0) {
+        $.ajax({
+            url: "https://localhost:44325/api/Weather/" + cityname,
+            type: "GET",
+            contentType: 'json',
+            success: function (rsltval) {
+                var data = rsltval;
+                var test = new String(rsltval);
+                var obj = JSON.parse(test);
+                console.log(data);
+                //alert(test);
+                var temp = obj.main.temp;
+                var tempMax = obj.main.temp_max;
+                var tempMin = obj.main.temp_min;
+                var tempSimple = getTemp(new String(temp));
+                var max = getTemp(new String(tempMax));
+                var min = getTemp(new String(tempMin));
+                $("#temperature").html(tempSimple);
+                $("#weatherIcon").attr("src", "http://openweathermap.org/img/wn/" + obj.weather[0].icon + "@@" + "2x.png");
+                $("#city").html(obj.name);
+                $("#tempmin").html(min);
+                $("#tempmax").html(max);
+                $("#country").text(obj.sys.country);
+                $("#humidity").text(obj.main.humidity);
+                $("#wind").text(obj.wind.speed);
+                $("#clouds").text(obj.clouds.all);
+                $("#pressure").text(obj.main.pressure);
+                $("#sunrise").text(convertTimestamp(obj.sys.sunrise));
+                $("#sunset").text(convertTimestamp(obj.sys.sunset));
+            },
+            error: function () {
+
+            }
+        });
+    }
+    else {
+        alert("City Not Found");
+    }
+</script>
+
+<script>
+
+    function getTemp(temp) {
+        var index = temp.indexOf(".");
+        if (index == -1) return temp;
+        else {
+            var tempSimple = temp.slice(0, index);
+            return tempSimple;
+        }
+    }
+
+    function convertTimestamp(time) {
+        var date = new Date(time * 1000);
+        var hours = date.getHours();
+        var minutes = "0" + date.getMinutes();
+        var formattedTime = hours + ':' + minutes.substr(-2);
+        return formattedTime;
+    }
+
+    $("#btnSubmit").click(function () {
+
+        var cityname = $("#txtCity").val();
+        if (cityname.length > 0) {
+            $.ajax({
+                url: "https://localhost:44325/api/Weather/" + cityname,
+                type: "GET",
+                contentType: 'json',
+                success: function (rsltval) {
+                    var data = rsltval;
+                    var test = new String(rsltval);
+                    var obj = JSON.parse(test);
+                    console.log(data);
+                    //alert(test);
+                    var temp = obj.main.temp;
+                    var tempMax = obj.main.temp_max;
+                    var tempMin = obj.main.temp_min;
+                    var tempSimple = getTemp(new String(temp));
+                    var max = getTemp(new String(tempMax));
+                    var min = getTemp(new String(tempMin));
+                    $("#temperature").html(tempSimple);
+                    $("#weatherIcon").attr("src", "http://openweathermap.org/img/wn/" + obj.weather[0].icon + "@@" + "2x.png");
+                    $("#city").html(obj.name);
+                    $("#tempmin").html(min);
+                    $("#tempmax").html(max);
+                    $("#country").text(obj.sys.country);
+                    $("#humidity").text(obj.main.humidity);
+                    $("#wind").text(obj.wind.speed);
+                    $("#clouds").text(obj.clouds.all);
+                    $("#pressure").text(obj.main.pressure);
+                    $("#sunrise").text(convertTimestamp(obj.sys.sunrise));
+                    $("#sunset").text(convertTimestamp(obj.sys.sunset));
+                },
+                error: function () {
+
+                }
+            });
+        }
+        else {
+            alert("City Not Found");
+        }
+    });
+
+</script>

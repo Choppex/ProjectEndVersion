@@ -1,0 +1,52 @@
+﻿@model AuthSystem.Models.Notes
+
+@{
+    ViewData["Title"] = "Create";
+    
+}
+<script>
+    $(function () {
+        $("#datepicker").datepicker({ dateFormat: 'yy' });
+    });​
+</script>
+
+
+<div class="row">
+    <div class="col-sm card">
+
+        <h1>Dodaj nowy wpis</h1>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input id="datepicker" value="@DateTime.Now.ToString("MM.yyyy")" asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" class="control-label"></label>
+                <textarea rows="8" cols="20" asp-for="Note" class="form-control"></textarea>
+                @*<input asp-for="Content" class="form-control" />*@
+                <span asp-validation-for="Note" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-success" />
+                <label> </label>
+                <a class="btn btn-warning" asp-action="Index">Wróc</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

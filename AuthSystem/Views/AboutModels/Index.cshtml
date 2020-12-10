@@ -1,0 +1,25 @@
+﻿@model IEnumerable<AuthSystem.Models.AboutModel>
+
+@{
+    ViewData["Title"] = "O nas";
+}
+
+<div>
+    <div class="card mb-0 mt-4" style="background-color: #f2f2f2">
+        <h3 class="text-center">O nas</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    @foreach (var item in Model)
+                    {
+                            <div class="card-body">
+                                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.AboutContent)</p>
+                            </div>
+                        <label> </label>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

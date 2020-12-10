@@ -1,0 +1,27 @@
+﻿@model AuthSystem.Models.Article
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<div class="card" style="background-color: #f2f2f2">
+
+    <div class="container mt-4 mb-4">
+        <h3>Napewno chcesz usunąć?</h3>
+        <div class="card">
+            <div class="card-header">
+                <h3>@Html.DisplayFor(model => model.Title)</h3>
+            </div>
+            <div class="card-body">
+                @Html.DisplayFor(model => model.Content)
+            </div>
+            <div class="card-footer">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="ArticleId" />
+                    <input type="submit" value="Usuń" class="btn btn-danger" />
+                    <label></label>
+                    <a class="btn btn-warning" asp-action="IndexAdmin">Wróc do listy</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

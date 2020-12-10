@@ -71,7 +71,6 @@ namespace AuthSystem.Controllers
                         emailClient.Authenticate("choppex1998@gmail.com", "Choppex1");
                         emailClient.Send(message);
                         emailClient.Disconnect(true);
-                        ViewBag.Message = String.Format("Wiadomość wysłana!");
                     }
                 }
                 catch (Exception ex)

@@ -10,14 +10,14 @@
         font-weight: bold;
     }
 
-    .clock {    
-        font-size:35px;
-        text-align:center;
+    .clock {
+        font-size: 35px;
+        text-align: center;
     }
 
     .clock-pos {
-        justify-content:center;
-        padding:20px;
+        justify-content: center;
+        padding: 20px;
     }
 </style>
 
@@ -35,13 +35,15 @@
                             <div class="card-body">
                                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
                                 <h6 class="card-subtitle mb-2 text-muted"> @Html.DisplayFor(modelItem => item.Date)</h6>
-                                @if (item.Content.Length < 70)
+                                @if (item.Content.Length < 400)
                                 {
                                     <p class="card-text">@Html.DisplayFor(modelItem => item.Content)</p>
                                 }
                                 else
                                 {
-                                    <p class="card-text">@Html.DisplayFor(modelItem => item.Content) ...</p>
+
+                                    var str = item.Content.Substring(0,400);
+                                    <p class="card-text">@Html.DisplayFor(modelItem => str)...</p>
                                     <a asp-action="Details" asp-route-id="@item.ArticleId" class="btn btn-primary">Czytaj więcej</a>
                                 }
                             </div>
@@ -123,7 +125,7 @@
                 $("#humidity").text(obj.main.humidity);
                 $("#wind").text(obj.wind.speed);
                 $("#clouds").text(obj.clouds.all);
-                    //data - response from server
+                //data - response from server
             },
             error: function () {
 
@@ -156,21 +158,21 @@
         document.getElementById("clock")
             .innerHTML = currentTime;
     }
-    showTime(); 
+    showTime();
 </script>
 
 @*<script>
-    setInterval(showSec, 1000);
-    function showSec() {
-        let time = new Date();
-        let sec = time.getSeconds();
+        setInterval(showSec, 1000);
+        function showSec() {
+            let time = new Date();
+            let sec = time.getSeconds();
 
-        sec = sec < 10 ? "0" + sec : sec;
+            sec = sec < 10 ? "0" + sec : sec;
 
-        let currentTime = sec;
+            let currentTime = sec;
 
-        document.getElementById("second")
-            .innerHTML = currentTime;
-    }
-    showSec(); 
-</script>*@
+            document.getElementById("second")
+                .innerHTML = currentTime;
+        }
+        showSec();
+    </script>*@

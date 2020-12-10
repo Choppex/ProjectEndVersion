@@ -26,6 +26,23 @@ namespace AuthSystem.Controllers
             return View(await _context.Articles.ToListAsync());
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var imageModel = await _context.Articles
+                .FirstOrDefaultAsync(m => m.ArticleId == id);
+            if (imageModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(imageModel);
+        }
+
         [Authorize(Policy = "komandorpolicy")]
         public async Task<IActionResult> IndexAdmin()
         {

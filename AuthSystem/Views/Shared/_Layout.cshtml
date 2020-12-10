@@ -94,10 +94,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Kontakt</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Notes" asp-action="Index">Notatki</a>
-                        </li>
-
                         @if ((await AuthorizationService.AuthorizeAsync(User, "standardpolicy")).Succeeded)
                         {
                             <li class="nav-item">

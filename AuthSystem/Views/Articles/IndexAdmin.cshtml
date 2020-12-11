@@ -22,13 +22,15 @@
                         <div class="card-body">
                             <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
                             <h6 class="card-subtitle mb-2 text-muted"> @Html.DisplayFor(modelItem => item.Date)</h6>
-                            @if (item.Content.Length < 70)
+                            @if (item.Content.Length < 401)
                             {
                                 <p class="card-text">@Html.DisplayFor(modelItem => item.Content)</p>
                             }
                             else
                             {
-                                <p class="card-text">@Html.DisplayFor(modelItem => item.Content) ...</p>
+
+                                var str = item.Content.Substring(0, 400);
+                                <p class="card-text">@Html.DisplayFor(modelItem => str)...</p>
                                 <a asp-action="Details" asp-route-id="@item.ArticleId" class="btn btn-primary">Czytaj więcej</a>
                             }
                         </div>

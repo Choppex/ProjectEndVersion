@@ -29,7 +29,7 @@
         @if (Model.Any())
         {
 
-            foreach (var user in Model)
+            foreach (var user in Model.Reverse())
             {
                 <div class="card mb-3">
                     <div class="card-header">
@@ -82,15 +82,15 @@
         {
             <div class="card">
                 <div class="card-header">
-                    No users created yet
+                    Nie ma tu nikogo :(
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">
-                        Use the button below to create a user
+                        Stwórz nowego użytkownika
                     </h5>
                     <a class="btn btn-primary" style="width:auto"
                        asp-controller="Account" asp-action="Register">
-                        Add new user
+                       Dodaj użytkownika
                     </a>
                 </div>
             </div>

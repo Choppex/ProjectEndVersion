@@ -35,7 +35,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
                                 <h6 class="card-subtitle mb-2 text-muted"> @Html.DisplayFor(modelItem => item.Date)</h6>
-                                @if (item.Content.Length < 400)
+                                @if (item.Content.Length < 401)
                                 {
                                     <p class="card-text">@Html.DisplayFor(modelItem => item.Content)</p>
                                 }

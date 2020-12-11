@@ -31,50 +31,50 @@
                     <div class="row">
                         <div class="form-group col-md-7">
                             <label asp-for="Name">Imię:</label>
-                            <input asp-for="Name" class="form-control" />
+                            <input id="inName" asp-for="Name" class="form-control" />
                             <span asp-validation-for="Name" class="text-muted"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-7">
                             <label asp-for="Email">Email:</label>
-                            <input asp-for="Email" class="form-control" />
+                            <input id="inEmail" asp-for="Email" class="form-control" />
                             <span asp-validation-for="Email" class="text-muted"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-7">
                             <label asp-for="Subject">Temat:</label>
-                            <input asp-for="Subject" class="form-control" />
+                            <input id="inSubject" asp-for="Subject" class="form-control" />
                             <span asp-validation-for="Subject" class="text-muted"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-10">
                             <label asp-for="Message">Twoja wiadomość do nas!</label>
-                            <textarea rows="8" cols="20" asp-for="Message" class="form-control"></textarea>
+                            <textarea id="inMessage" rows="8" cols="20" asp-for="Message" class="form-control"></textarea>
                             <span asp-validation-for="Message" class="text-muted"></span>
                         </div>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-success">Wyślij!</button>
+                        <button id="btnSubmit" type="submit" class="btn btn-success">Wyślij!</button>
                     </div>
                     <label></label>
                 </form>
             </div>
         </div>
         <div class="col-sm-5">
-            <p>
+            <p class="ml-2">
                 <i class="fas fa-phone fa-2x"></i>
-                <h3>123 456 789</h3>
+                <h3 class="ml-2">123 456 789</h3>
             </p>
-            <p>
+            <p class="ml-2">
                 <i class="fas fa-location-arrow fa-2x"></i>
-                <h3>ul. Willowa 2, Bielsko-Biała</h3>
+                <h3 class="ml-2">ul. Willowa 2, Bielsko-Biała</h3>
             </p>
-            <p>
+            <p class="ml-2">
                 <i class="fas fa-envelope fa-2x"></i>
-                <h3>akzraksa@gmail.com</h3>
+                <h3 class="ml-2">akzraksa@gmail.com</h3>
             </p>
         </div>
     </div>
@@ -83,7 +83,8 @@
     <div class="d-flex justify-content-center mb-4">
         <div class="mapouter">
             <div class="gmap_canvas">
-                <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=willowa%202%2C%20bielsko-bia%C5%82a&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                <iframe style="overflow: hidden; height: 400px;
+                   width: 100%;" id="gmap_canvas" src="https://maps.google.com/maps?q=willowa%202%2C%20bielsko-bia%C5%82a&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                 <a href="https://embedgooglemap.net/143/">730</a>
             </div>
         </div>
@@ -91,5 +92,15 @@
 
 
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").on("click", function () {
+            alert('Wysłano!');
+        });
+
+    });
+</script>
+
 
 

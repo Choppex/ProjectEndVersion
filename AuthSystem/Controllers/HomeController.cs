@@ -71,6 +71,7 @@ namespace AuthSystem.Controllers
                         emailClient.Authenticate("choppex1998@gmail.com", "Choppex1");
                         emailClient.Send(message);
                         emailClient.Disconnect(true);
+                        ModelState.Clear();
                     }
                 }
                 catch (Exception ex)

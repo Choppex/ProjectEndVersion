@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 using AuthSystem.Areas.Identity.Data;
 using AuthSystem.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AuthSystem.Controllers
 {
@@ -246,6 +249,29 @@ namespace AuthSystem.Controllers
         {
             await roleManager.CreateAsync(role);
             return RedirectToAction("ListRoles");
+        }
+
+
+        public async Task<IActionResult> ChangePassword(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            var result = await userManager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                var rsl = await userManager.CreateAsync(user, "password1");
+                if (rsl.Succeeded)
+                {
+                    return RedirectToAction("ListUsers");
+                }
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View("ListUsers");
         }
 
     }

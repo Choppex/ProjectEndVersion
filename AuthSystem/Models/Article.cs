@@ -20,7 +20,7 @@ namespace AuthSystem.Models
         public string Date { get; set; }
 
 
-        [Column(TypeName = "nvarchar(1000)")]
+        [Column(TypeName = "varchar(MAX)")]
         [DisplayName("Treść")]
         public string Content { get; set; }
     }

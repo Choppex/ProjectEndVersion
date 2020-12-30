@@ -61,7 +61,7 @@ namespace AuthSystem.Controllers
                     //E-mail message body
                     message.Body = new TextPart(TextFormat.Html)
                     {
-                        Text = contactViewModel.Message + "\n Wiadomość wysłana od: " + contactViewModel.Name + "\n E-mail: " + contactViewModel.Email
+                        Text = contactViewModel.Message + "\n Wiadomość wysłana od: " + contactViewModel.Name + " E-mail: " + contactViewModel.Email
                     };
 
                     //Configure the e-mail
